@@ -1,0 +1,25 @@
+section#add-candidate-form {
+  width: 100%;
+  border-radius: 8px;
+  padding: 28px 20px;
+  background: var(--white);
+  font-family: var(--base-font);
+  display: flex;
+  justify-content: center;
+}
+section#add-candidate-form > div {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  max-width: 800px;
+  width: 100%;
+  gap: 30px;
+}
+section#add-candidate-form label {
+  font-weight: 700;
+  font-size: 18px;
+}
+section#add-candidate-form input {
+  font-size: 17px;
+  font-weight: 400;
+}

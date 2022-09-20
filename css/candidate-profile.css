@@ -1,0 +1,129 @@
+#candidate-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+#candidate-controls > button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+button#view > svg {
+  width: 20px;
+  height: 17.78px;
+}
+button#update > svg {
+  width: 20px;
+  height: 20px;
+}
+button#delete > svg {
+  width: 20px;
+  height: 22.86px;
+}
+button#delete {
+  color: var(--red);
+  border: 1px solid var(--red);
+}
+button#delete > svg > path {
+  fill: var(--red);
+}
+button#delete:hover {
+  color: var(--white);
+  background: var(--red);
+}
+button#delete:hover > svg > path {
+  fill: var(--white);
+}
+button.profile-active {
+  background: var(--navy-blue);
+  color: var(--white);
+}
+button.profile-active > svg > path {
+  fill: var(--white);
+}
+section#profile-details {
+  width: 100%;
+  border-radius: 8px;
+  padding: 28px 20px;
+  background: var(--white);
+  font-family: var(--base-font);
+  display: flex;
+  justify-content: center;
+}
+section#profile-details > div {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  max-width: 800px;
+  width: 100%;
+  gap: 30px;
+}
+section#profile-details label {
+  font-weight: 700;
+  font-size: 18px;
+}
+section#profile-details input {
+  font-size: 17px;
+  font-weight: 400;
+}
+section#profile-details > div table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+section#profile-details > div table th,
+section#profile-details > div table td {
+  width: 150px;
+}
+form {
+  align-items: center;
+}
+form, form > div {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 25px;
+}
+form div.profile-data-cnt {
+  display: flex;
+  gap: 15px;
+}
+
+form div.profile-data-cnt > div {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
+  max-width: 200px;
+  gap: 7px;
+  color: var(--navy-blue);
+}
+form div.profile-data-cnt > div a {
+  width: 100%;
+  color: var(--navy-blue);
+}
+form div.profile-data-cnt > div input {
+  width: 100%;
+  background: transparent;
+  border: 1px solid transparent;
+}
+form.edit-mode div.profile-data-cnt > div input {
+  border: 1px solid var(--navy-blue);
+  padding: 10px;
+}
+
+form > button#submit-update {
+  display: none;
+}
+form.edit-mode > button#submit-update {
+  display: block;
+  width: 180px;
+}
+
+
+section#profile-details > div > form.view-mode > div > div ul.option-dropdown,
+section#profile-details > div > form.view-mode > div > div button.select-icon {
+  display: none;
+}
+section#profile-details > div > form.edit-mode > div > div ul.option-dropdown,
+section#profile-details > div > form.edit-mode > div > div button.select-icon {
+  display: block;
+}

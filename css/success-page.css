@@ -1,0 +1,40 @@
+*{
+  padding: 0;
+  margin: 0;
+  
+}
+body{
+  width: 100%;
+  height: 109vh;
+  Display: block;
+  background:url(logdumel.jpg);
+  background-size: cover;
+  background-color: rgb(230, 230, 245);
+  background-position: center;
+  text-align: center;
+  align-items: center;
+}
+
+.Success{
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  color: rgba(0, 0, 58, 1);
+  font-weight: Bold;
+  font-family: Arial;
+  font-size: 40px;
+  margin-top: none;
+}
+.img2{
+  width: 60%;
+  height: 60vh;
+  Display: flex;
+  margin-left: 400px;
+  margin-top: None;
+}
+.back{
+  font-family: Arial;
+  font-size: 12px;
+  margin-left: 900px;
+  margin-top: 60px;
+}

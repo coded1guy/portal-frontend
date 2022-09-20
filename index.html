@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Home | Recruitment Portal</title>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Recruitment portal, Resume" />
+  <meta http-equiv="refresh" content="30" />
+  <meta name="viewport" content="width=device=width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./css/base.css" />
+  <link rel="stylesheet" href="./css/index.css" />
+</head>
+
+<body>
+  <div id="loader-cont">
+    <div class="loader"></div>
+  </div>
+  <header>
+    <h1>RECRUITMENT PORTAL</h1>
+      <form id="search-bar">
+        <input id="srch" type="search" placeholder="Search by Candidate or Role" required/>
+        <button id="searchbtn" type="submit">search</button>
+      </form>
+  </header>
+  <main>
+    <div>
+      <div id="tool-kits">
+        <button id="add-candidate">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path
+              d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+          </svg>
+          <span>add new candidate</span>
+        </button>
+        <div id="pagination-ctrl"></div>
+      </div>
+      <section>
+        <table>
+          <thead>
+            <tr>
+              <th>S/N</th>
+              <th>Name</th>
+              <th>Country</th>
+              <th>Job Title</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="user-list">
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </main>
+  <script src="./js/main.js"></script>
+  <script src="./js/index.js"></script>
+</body>
+
+</html>
