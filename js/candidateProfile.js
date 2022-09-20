@@ -5,12 +5,12 @@ let updateBtn = document.querySelector("#update");
 let deleteBtn = document.querySelector("#delete");
 
 let getCandidateProfile = async(candidateId)=> {
-    let response = await fetch(`http://localhost:8000/api/candidate/${candidateId}.json`);
+    let response = await fetch(`${apiHost}/candidate/${candidateId}.json`);
     let data = await response.json();
     return data;
 }
 let getJobTitle = async(jobId)=> {
-    let jobResponse = await fetch(`http://localhost:8000/api/job/${jobId}.json`);
+    let jobResponse = await fetch(`${apiHost}/job/${jobId}.json`);
     let jobTitle = await jobResponse.json();
     return jobTitle;
 }
@@ -184,7 +184,7 @@ deleteBtn.onclick = ()=> {
     console.log("delete");
     let trulyDelete = confirm("You are about to delete this candidate from the database\n choose OK or Cancel.");
     if(trulyDelete) {
-        fetch(`http://localhost:8000/api/candidate/${storedId}.json`, {
+        fetch(`${apiHost}/candidate/${storedId}.json`, {
             method: 'DELETE',
         });
         localStorage.removeItem("candidateId");

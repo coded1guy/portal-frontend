@@ -142,7 +142,7 @@ let suggestJobTitle = (value)=> {
 let getJobId = async(job)=> {
     let getJobId = job;
     getJobId = getJobId.split(" ").join("+");
-    let jobResponse = await fetch(`http://localhost:8000/api/job.json/?job_title=${getJobId}`);
+    let jobResponse = await fetch(`${apiHost}/job.json/?job_title=${getJobId}`);
     let jobId = await jobResponse.json();
     return jobId;
 }
@@ -150,7 +150,7 @@ let getJobId = async(job)=> {
 let createNewJob = async(job)=> {
     console.log(job);
     let jobdata = { "job_title": job };
-    let jobResponse = await fetch(`http://localhost:8000/api/job/`, {
+    let jobResponse = await fetch(`${apiHost}/job/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -169,7 +169,7 @@ let createNewJob = async(job)=> {
 let sendFormData = async(formdata, requestType)=> {
     let formResponse;
     if(requestType === "POST") {
-        formResponse = await fetch('http://localhost:8000/api/candidate', {
+        formResponse = await fetch(`${apiHost}/candidate`, {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -177,7 +177,7 @@ let sendFormData = async(formdata, requestType)=> {
             body: JSON.stringify(formdata),
         });
     } else if(requestType === "PUT") {
-        formResponse = await fetch(`http://localhost:8000/api/candidate/${storedId}`, {
+        formResponse = await fetch(`${apiHost}/candidate/${storedId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

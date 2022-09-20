@@ -20,7 +20,7 @@ let getAllCandidates = async(apiLink)=> {
     each candidate's job_id returned from the candidate endpoint
 */
 let getJobTitle = async(jobId)=> {
-    let jobResponse = await fetch(`http://localhost:8000/api/job/${jobId}.json`);
+    let jobResponse = await fetch(`${apiHost}/job/${jobId}.json`);
     let jobTitle = await jobResponse.json();
     return jobTitle;
 }
@@ -64,9 +64,9 @@ let goToPage = (page)=> {
             document.querySelector(`#pg-btn${nextPage}`).classList.add("current-page");
             loaderCont.style.display = "flex";
             if (page > 1) {
-                propUrl = `http://localhost:8000/api/candidate.json/?page=${page}`;
+                propUrl = `${apiHost}/candidate.json/?page=${page}`;
             } else {
-                propUrl = "http://localhost:8000/api/candidate.json";
+                propUrl = `${apiHost}/candidate.json`;
             }
             getAllCandidates(propUrl)
             .then(data => {
@@ -81,7 +81,7 @@ let goToPage = (page)=> {
 let setupPagination= (count)=> {
     paginationCont.innerHTML = "";
     let pageNumbers;
-    const divs = (count / 6);
+    const divs = (count / 10);
     if(divs > Math.floor(divs)) {
         pageNumbers = Math.floor(divs) + 1;
     } else {
@@ -101,7 +101,7 @@ let setupPagination= (count)=> {
 }
 // this function initializes all settings of the home page
 (()=> {
-    getAllCandidates("http://localhost:8000/api/candidate.json")
+    getAllCandidates(`${apiHost}/candidate.json`)
     .then(data => {
         count = Number(data.count);
         setupPagination(count);
@@ -120,7 +120,7 @@ searchForm.onsubmit = (e)=> {
     e.preventDefault();
     let fullName = searchForm.querySelector("input").value;
     fullName = fullName.split(',');
-    getAllCandidates(`http://localhost:8000/api/candidate.json?status=&first_name=${fullName[0].trim()}&last_name=${fullName[1].trim()}`)
+    getAllCandidates(`${apiHost}/candidate.json?status=&first_name=${fullName[0].trim()}&last_name=${fullName[1].trim()}`)
     .then(data => {
         count = Number(data.count);
         setupPagination(count);
