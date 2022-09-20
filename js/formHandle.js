@@ -115,7 +115,7 @@ let setStatusOption = (statusData)=> {
 
 
 let getAllJobTitles = async()=> {
-    let response = await fetch(`${apiHost}job.json`);
+    let response = await fetch(`${apiHost}/job.json`);
     let data = await response.json();
     return data;
 }
