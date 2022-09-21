@@ -127,3 +127,14 @@ searchForm.onsubmit = (e)=> {
         setDataTable(data.results);
     })
 }
+
+document.querySelector("#search-bar input").onblur = ()=> {
+    if(!document.querySelector("#search-bar input").value) {
+        getAllCandidates(`${apiHost}/candidate.json`)
+        .then(data => {
+            count = Number(data.count);
+            setupPagination(count);
+            setDataTable(data.results);
+        })
+    }
+}

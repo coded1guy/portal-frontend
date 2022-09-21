@@ -1,6 +1,6 @@
 #search-bar {
-  width: 400px;
-  border: 1px solid red;
+  width: 100%;
+  max-width: 450px;
   height: 45px;
   display: flex;
   border: 1px solid var(--navy-blue);
@@ -82,4 +82,36 @@ th {
 td {
   font-size: 15px;
   font-weight: 400;
+}
+#home-pg {
+  width: 100%;
+}
+
+@media screen and (max-width: 800px) {
+  #home-pg {
+    width: 100%;
+    overflow: scroll;
+    border: 1px solid red;
+  }
+  #home-pg::-webkit-scrollbar {
+    height: 5px;
+  }
+  #home-pg::-webkit-scrollbar-track {
+    background: var(--white); 
+  }
+  #home-pg::-webkit-scrollbar-thumb {
+    background: var(--navy-blue); 
+      border-radius:10px;
+  }
+  #home-pg > table {
+    min-width: 718px;
+  }
+  @media screen and (max-width: 425px) {
+    #add-candidate {
+      width: 100px;
+    }
+    #add-candidate > span {
+      display: none;
+    }
+  }
 }

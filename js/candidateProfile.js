@@ -184,7 +184,7 @@ deleteBtn.onclick = ()=> {
     console.log("delete");
     let trulyDelete = confirm("You are about to delete this candidate from the database\n choose OK or Cancel.");
     if(trulyDelete) {
-        fetch(`${apiHost}/candidate/${storedId}.json`, {
+        fetch(`${apiHost}/candidate/${storedId}`, {
             method: 'DELETE',
         });
         localStorage.removeItem("candidateId");
