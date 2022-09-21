@@ -91,7 +91,6 @@ td {
   #home-pg {
     width: 100%;
     overflow: scroll;
-    border: 1px solid red;
   }
   #home-pg::-webkit-scrollbar {
     height: 5px;
@@ -108,10 +107,13 @@ td {
   }
   @media screen and (max-width: 425px) {
     #add-candidate {
-      width: 100px;
+      width: 60px;
     }
     #add-candidate > span {
       display: none;
+    }
+    #pagination-ctrl {
+      border: 1px solid red;
     }
   }
 }
