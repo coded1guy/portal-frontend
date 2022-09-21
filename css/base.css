@@ -115,6 +115,7 @@ main > div {
   align-items: center;
   background: rgba(214, 243, 231, 1);
   z-index: 99999;
+  display: none;
 }
 .loader {  
   width: 150px;
