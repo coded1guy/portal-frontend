@@ -1,4 +1,12 @@
-input#job-title {
+form#formParent label {
+    font-weight: 700;
+    font-size: 18px;
+}
+form#formParent input {
+    font-size: 17px;
+    font-weight: 400;
+}
+form#formParent input#job-title {
     text-transform: capitalize;
 }
 .select-option {
@@ -53,38 +61,39 @@ div.select-option button.select-icon > svg > path {
     fill: var(--navy-blue);
 }
   
-form {
+form#formParent {
+    font-family: var(--base-font);
     align-items: center;
 }
-form, form > div {
+form#formParent, form#formParent > div {
     display: flex;
     flex-flow: column nowrap;
     gap: 25px;
 }
-form div.input-data-row {
+form#formParent div.input-data-row {
     display: flex;
     gap: 15px;
 }
-form div.input-data-row > div {
+form#formParent div.input-data-row > div {
     display: flex;
     flex-flow: column nowrap;
     width: 100%;
     max-width: 200px;
     gap: 7px;
 }
-form div.input-data-row > div a {
+form#formParent div.input-data-row > div a {
     width: 100%;
 }
-form div.input-data-row > div input {
+form#formParent div.input-data-row > div input {
     width: 100%;
     background: transparent;
     border: 1px solid transparent;
 }
-form div.input-data-row > div input {
+form#formParent div.input-data-row > div input {
     border: 1px solid var(--navy-blue);
     padding: 10px;
 }
-form > button {
+form#formParent > button {
     display: block;
     width: 180px;
 }

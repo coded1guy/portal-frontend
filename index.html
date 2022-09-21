@@ -8,12 +8,87 @@
   <meta name="viewport" content="width=device=width, initial-scale=1.0" />
   <link rel="stylesheet" href="./css/base.css" />
   <link rel="stylesheet" href="./css/index.css" />
+  <link rel="stylesheet" href="./css/form.css" />
 </head>
 
 <body>
   <div id="loader-cont">
     <div class="loader"></div>
   </div>
+  <div id="filter-params">
+    <h2>set data filter properties</h2>
+    <form id="formParent">
+      <div>
+        <div class="input-data-row">
+          <div>
+            <label for="country">Country</label>
+            <input id="country" type="text" placeholder="input country" value="">
+          </div>
+          <div>
+            <label for="state">State</label>
+            <input id="state" type="text" placeholder="input state" value="">
+          </div>
+          <div>
+            <label for="city">City</label>
+            <input id="city" type="text" placeholder="input city" value="">
+          </div>
+        </div>
+        <div class="input-data-row">
+          <div>
+            <label for="job-title">Job</label>
+            <div class="select-option">
+              <input id="job-title" type="text" placeholder="input job title" value="">
+              <ul id="job-dd" class="option-dropdown">
+                <li id="suggOption"></li>
+              </ul>
+              </div>
+          </div>
+          <div>
+            <label for="level">Level</label>
+            <div class="select-option">
+              <input id="level" type="number" placeholder="input level" value="" readonly>
+              <button type="button" class="select-icon" id="level-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                  <path
+                    d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+                </svg>
+              </button>
+              <ul id="level-dd" class="option-dropdown">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <label for="status">Status</label>
+            <div class="select-option">
+              <input id="status" type="text" placeholder="input status" value=""readonly>
+              <button type="button" class="select-icon" id="status-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                  <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                  <path
+                    d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+                </svg>
+              </button>
+              <ul id="status-dd" class="option-dropdown">
+                <li>Interviewed (Selected)</li>
+                <li>Interviewed (Not Selected)</li>
+                <li>Not Interviewed</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit">Filter data</button>
+    </form>
+  </div>
+
   <header>
     <h1>RECRUITMENT PORTAL</h1>
       <form id="search-bar">
@@ -50,7 +125,9 @@
       </section>
     </div>
   </main>
+  <script src="//unpkg.com/string-similarity@4.0.1/umd/string-similarity.min.js"></script>
   <script src="./js/main.js"></script>
+  <script src="./js/formHandle.js"></script>
   <script src="./js/index.js"></script>
 </body>
 

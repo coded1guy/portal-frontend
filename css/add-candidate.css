@@ -15,11 +15,4 @@ section#add-candidate-form > div {
   width: 100%;
   gap: 30px;
 }
-section#add-candidate-form label {
-  font-weight: 700;
-  font-size: 18px;
-}
-section#add-candidate-form input {
-  font-size: 17px;
-  font-weight: 400;
-}
+

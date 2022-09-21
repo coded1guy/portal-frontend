@@ -138,3 +138,35 @@ document.querySelector("#search-bar input").onblur = ()=> {
         })
     }
 }
+
+
+getDOMElems();
+// when the filter form is submitted
+const formChildren = formParent.querySelectorAll("input");
+console.log(formChildren);
+[ countryIn, stateIn, cityIn, jobIdIn, levelIn, statusIn ] = formChildren;
+formParent.onsubmit = (e)=> {
+    e.preventDefault();
+    if(countryIn.value || stateIn.value || cityIn.value || jobTitleIn.value || levelIn.value || statusIn.value) {
+        console.log("submit");
+        //sendRequestData("POST");
+    }
+    let Country = countryIn.value;
+    let State = stateIn.value;
+    let City = cityIn.value;
+    let JobTitle = jobTitleIn.value;
+    let Level = levelIn.value;
+    let Status = statusIn.value;
+    Country = Country.split(',');
+    State = State.split(',');
+    City = City.split(',');
+    JobTitle = JobTitle.split(',');
+    Level = Level.split(',');
+    Status = Status.split(',');
+    getAllCandidates(`${apiHost}/candidate.json?status=&first_name=${fullName[0].trim()}&last_name=${fullName[1].trim()}`)
+    .then(data => {
+        count = Number(data.count);
+        setupPagination(count);
+        setDataTable(data.results);
+    })
+}
