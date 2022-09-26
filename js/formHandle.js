@@ -28,7 +28,7 @@ let getDOMElems = () => {
     levelDD = document.querySelector("#level-dd");
     statusDD = document.querySelector("#status-dd");
     // possible options for level and status
-    levelOptions = [1, 2, 3, 4, 5, 6, 7];
+    levelOptions = ["Entry", "Junior", "Intermediate", "Senior"];
     statusOptions = [ "Interviewed (Selected)", "Interviewed (Not Selected)", "Not Interviewed"];
     
     formParentInputs.forEach(element => {
@@ -53,7 +53,7 @@ let getDOMElems = () => {
         // when the level dropdown icon is clicked
         if(levelIcon.contains(e.target)) {
             if(levelDD.style.height == "0px") {
-                levelDD.style.height = "204px";
+                levelDD.style.height = "116px";
             } else {
                 levelDD.style.height = "0px";
             }

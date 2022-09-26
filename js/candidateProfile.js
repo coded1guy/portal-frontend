@@ -81,13 +81,10 @@ let init = ()=> {
                                 </svg>
                             </button>
                             <ul id="level-dd" class="option-dropdown">
-                                <li>1</li>
-                                <li>2</li>
-                                <li>3</li>
-                                <li>4</li>
-                                <li>5</li>
-                                <li>6</li>
-                                <li>7</li>
+                                <li>Entry</li>
+                                <li>Junior</li>
+                                <li>Intermediate</li>
+                                <li>Senior</li>
                             </ul>
                         </div>
                     </div>
