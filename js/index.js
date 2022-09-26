@@ -38,7 +38,7 @@ let setDataTable = (results)=> {
     for(let resultIterator = 0; resultIterator < results.length; resultIterator++) {
         getJobTitle(results[resultIterator].job_id).then(jobTitle => {
             listContainer.innerHTML += `<tr onclick="goToCandidateProfile(${results[resultIterator].id})">
-                <td>${results[resultIterator].id}</td>
+                <td>${(resultIterator + 1)}</td>
                 <td>${results[resultIterator].first_name + ' ' + results[resultIterator].last_name}</td>
                 <td>${results[resultIterator].country}</td>
                 <td>${jobTitle.job_title}</td>
@@ -46,7 +46,9 @@ let setDataTable = (results)=> {
             </tr>`;
         });
     }
-    loaderCont.style.display = "none";
+    setTimeout(() => {
+        loaderCont.style.display = "none";
+    }, 1000);
 }
 /* 
     this function:
@@ -143,7 +145,6 @@ document.querySelector("#search-bar input").onblur = ()=> {
 getDOMElems();
 // when the filter form is submitted
 const formChildren = formParent.querySelectorAll("input");
-console.log(formChildren);
 [ countryIn, stateIn, cityIn, jobIdIn, levelIn, statusIn ] = formChildren;
 formParent.onsubmit = (e)=> {
     e.preventDefault();
