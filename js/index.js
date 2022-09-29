@@ -122,12 +122,21 @@ searchForm.onsubmit = (e)=> {
     e.preventDefault();
     let fullName = searchForm.querySelector("input").value;
     fullName = fullName.split(',');
-    getAllCandidates(`${apiHost}/candidate.json?status=&first_name=${fullName[0].trim()}&last_name=${fullName[1].trim()}`)
-    .then(data => {
-        count = Number(data.count);
-        setupPagination(count);
-        setDataTable(data.results);
-    })
+    if(fullName.length === 1) {
+        getAllCandidates(`${apiHost}/candidate.json?status=&first_name=${fullName[0].trim()}`)
+        .then(data => {
+            count = Number(data.count);
+            setupPagination(count);
+            setDataTable(data.results);
+        })
+    } else if(fullName.length > 1) {
+        getAllCandidates(`${apiHost}/candidate.json?status=&first_name=${fullName[0].trim()}&last_name=${fullName[1].trim()}`)
+        .then(data => {
+            count = Number(data.count);
+            setupPagination(count);
+            setDataTable(data.results);
+        })
+    }
 }
 
 document.querySelector("#search-bar input").onblur = ()=> {
