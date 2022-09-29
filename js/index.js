@@ -116,27 +116,24 @@ addCandidate.onclick = ()=> {
 }
 
 
-
+// controls the filter by name property
 let searchForm = document.querySelector("#search-bar");
 searchForm.onsubmit = (e)=> {
     e.preventDefault();
     let fullName = searchForm.querySelector("input").value;
-    fullName = fullName.split(',');
+    fullName = fullName.replace(/\s+/g,' ').trim().split(' ');
+    let filterURL;
     if(fullName.length === 1) {
-        getAllCandidates(`${apiHost}/candidate.json?status=&first_name=${fullName[0].trim()}`)
-        .then(data => {
-            count = Number(data.count);
-            setupPagination(count);
-            setDataTable(data.results);
-        })
+        filterURL = `${apiHost}/candidate.json?status=&first_name=${fullName[0]}`;
     } else if(fullName.length > 1) {
-        getAllCandidates(`${apiHost}/candidate.json?status=&first_name=${fullName[0].trim()}&last_name=${fullName[1].trim()}`)
-        .then(data => {
-            count = Number(data.count);
-            setupPagination(count);
-            setDataTable(data.results);
-        })
+        filterURL = `${apiHost}/candidate.json?status=&first_name=${fullName[0]}&last_name=${fullName[1]}`;
     }
+    getAllCandidates(filterURL)
+    .then(data => {
+        count = Number(data.count);
+        setupPagination(count);
+        setDataTable(data.results);
+    })
 }
 
 document.querySelector("#search-bar input").onblur = ()=> {
