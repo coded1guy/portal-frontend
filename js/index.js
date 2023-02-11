@@ -21,7 +21,7 @@ let getAllCandidates = async(apiLink)=> {
     console.log(data, );
     if(response.status !== 200) {
         localStorage.removeItem("DRPsessionData");
-        window.location.replace("../login.html");
+        window.location.replace("./login.html");
     }
     return data;
 }

@@ -1,8 +1,8 @@
 // get the loader element
 const loaderCont = document.querySelector("#loader-cont");
-const authHost  = "http://127.0.0.1:8000/auth";
+const authHost  = "https://dumeldj.pythonanywhere.com/auth";
 if (localStorage.getItem("DRPsessionData")) {
-    window.location.href = "./index.html";
+    window.location.href = "./";
 } else {
     loaderCont.style.display = "none";
 }
