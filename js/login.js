@@ -2,7 +2,7 @@
 const loaderCont = document.querySelector("#loader-cont");
 const authHost  = "http://127.0.0.1:8000/auth";
 if (localStorage.getItem("DRPsessionData")) {
-    window.location.href = "../index.html";
+    window.location.href = "./index.html";
 } else {
     loaderCont.style.display = "none";
 }
@@ -33,7 +33,7 @@ loginForm.onsubmit = (e)=> {
             if(!data.non_field_errors) {
                 localStorage.setItem("DRPsessionData", JSON.stringify(data));
                 console.log(data);
-                window.location.href = "../";
+                window.location.href = "./";
             } else {
                 loaderCont.style.display = "none";
                 alert("Invalid login credentials");
