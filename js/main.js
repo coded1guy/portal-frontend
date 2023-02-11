@@ -8,5 +8,5 @@ loaderCont.style.display = "none";
 if (userData) {
     console.log("user is logged in");
 } else {
-    window.location.replace("../login.html");
+    window.location.replace("./login.html");
 }
