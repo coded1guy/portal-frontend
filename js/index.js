@@ -1,3 +1,4 @@
+console.log("website is live");
 // get all dom elements needed to populate the home page
 const listContainer = document.querySelector("#user-list");
 const addCandidate = document.querySelector("#add-candidate");
@@ -10,8 +11,18 @@ let nextPage = 1;
     batch of candidates data from the candidate endpoint
 */
 let getAllCandidates = async(apiLink)=> {
-    let response = await fetch(apiLink);
+    let response = await fetch(apiLink, {
+        method: "GET",
+        headers: {
+            Authorization: `token ${userData.token}`
+        }
+    });
     let data = await response.json();
+    console.log(data, );
+    if(response.status !== 200) {
+        localStorage.removeItem("DRPsessionData");
+        window.location.replace("../login.html");
+    }
     return data;
 }
 /*
@@ -20,13 +31,24 @@ let getAllCandidates = async(apiLink)=> {
     each candidate's job_id returned from the candidate endpoint
 */
 let getJobTitle = async(jobId)=> {
-    let jobResponse = await fetch(`${apiHost}/job/${jobId}.json`);
-    let jobTitle = await jobResponse.json();
-    return jobTitle;
+    let jobResponse = await fetch(`${apiHost}/job/${jobId}.json`, {
+        method: "GET",
+        headers: {
+            Authorization: `token ${userData.token}`
+        }
+    });
+    return await jobResponse.json();
 }
-/*
-    this function redirects us to the candidate's profile page
-*/
+let getAllJobTitle = async()=> {
+    let jobResponse = await fetch(`${apiHost}/job.json`, {
+        method: "GET",
+        headers: {
+            Authorization: `token ${userData.token}`
+        }
+    });
+    return await jobResponse.json();
+}
+// this function redirects us to the candidate's profile page
 let goToCandidateProfile = (candidateId)=> {
     localStorage.setItem("candidateId", candidateId);
     loaderCont.style.display = "flex";
@@ -34,18 +56,25 @@ let goToCandidateProfile = (candidateId)=> {
 }
 // populate the data table
 let setDataTable = (results)=> {
+    //let prevCnt = cnt * pg;
     listContainer.innerHTML = "";
-    for(let resultIterator = 0; resultIterator < results.length; resultIterator++) {
-        getJobTitle(results[resultIterator].job_id).then(jobTitle => {
-            listContainer.innerHTML += `<tr onclick="goToCandidateProfile(${results[resultIterator].id})">
-                <td>${(resultIterator + 1)}</td>
-                <td>${results[resultIterator].first_name + ' ' + results[resultIterator].last_name}</td>
-                <td>${results[resultIterator].country}</td>
-                <td>${jobTitle.job_title}</td>
-                <td>${results[resultIterator].status}</td>
-            </tr>`;
-        });
-    }
+    getAllJobTitle().then(allJobs => {
+        // loops through the candidates and populates the data table
+        for(let resultIterator = 0; resultIterator < results.length; resultIterator++) {
+            // loops through the array of all the jobs and gets the job title of each candidate
+            allJobs.forEach(job => {
+                if(job.id === results[resultIterator].job_id) {
+                    listContainer.innerHTML += `<tr onclick="goToCandidateProfile(${results[resultIterator].id})">
+                        <td>${results[resultIterator].id}</td>
+                        <td>${results[resultIterator].first_name + ' ' + results[resultIterator].last_name}</td>
+                        <td>${results[resultIterator].country}</td>
+                        <td>${job.job_title}</td>
+                        <td>${results[resultIterator].status}</td>
+                    </tr>`;
+                }
+            });
+        }
+    })
     setTimeout(() => {
         loaderCont.style.display = "none";
     }, 1000);
@@ -59,7 +88,7 @@ let goToPage = (page)=> {
     if(nextPage) {
         prevPage = nextPage;
         nextPage = page;
-        if(prevPage == nextPage) {
+        if(prevPage === nextPage) {
             console.log("true", prevPage, nextPage);
         } else {
             document.querySelector(`#pg-btn${prevPage}`).classList.remove("current-page");
@@ -83,14 +112,14 @@ let goToPage = (page)=> {
 let setupPagination= (count)=> {
     paginationCont.innerHTML = "";
     let pageNumbers;
-    const divs = (count / 10);
+    const divs = (count / 3);
     if(divs > Math.floor(divs)) {
         pageNumbers = Math.floor(divs) + 1;
     } else {
         pageNumbers = Math.floor(divs);
     }
     for (let forCount = 1; forCount < (pageNumbers + 1); forCount++) {
-        if(forCount == 1) {
+        if(forCount === 1) {
             paginationCont.innerHTML += `
                 <button id="pg-btn${forCount}" class="pag-a current-page" onclick=goToPage(${forCount})>${forCount}</button>
             `;
@@ -110,7 +139,7 @@ let setupPagination= (count)=> {
         setDataTable(data.results);
     })
 })();
-// this is the eventlistener for the add candidate button
+// this is the event listener for the add candidate button
 addCandidate.onclick = ()=> {
     window.location.href = "./add-candidate.html";
 }

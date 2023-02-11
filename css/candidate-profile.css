@@ -96,10 +96,6 @@ form div.profile-data-cnt > div {
   gap: 7px;
   color: var(--navy-blue);
 }
-form div.profile-data-cnt > div a {
-  width: 100%;
-  color: var(--navy-blue);
-}
 form div.profile-data-cnt > div input {
   width: 100%;
   background: transparent;
@@ -126,4 +122,9 @@ section#profile-details > div > form.view-mode > div > div button.select-icon {
 section#profile-details > div > form.edit-mode > div > div ul.option-dropdown,
 section#profile-details > div > form.edit-mode > div > div button.select-icon {
   display: block;
+}
+
+div.view-resume button {
+  font-size: 15px;
+  padding: 5px 10px;
 }

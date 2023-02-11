@@ -24,10 +24,7 @@ ul.option-dropdown {
     transition: .3s ease-in-out;
 }
 ul#level-dd.option-dropdown {
-    height: 0px;
-}
-ul#status-dd.option-dropdown {
-    height: 0px;
+    height: 0;
 }
 ul.option-dropdown li {
     padding: 4px 10px;
