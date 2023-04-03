@@ -1,0 +1,23 @@
+/* Loader css styles */
+#loader-cont{
+    width: 100%;
+    position: absolute;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(214, 243, 231, 1);
+    z-index: 99999;
+}
+.loader {
+    width: 150px;
+    height: 150px;
+    border-top: 14px solid var(--navy-blue);
+    border-radius: 50%;
+    animation: load .2s linear infinite;
+}
+/* Loader animation */
+@keyframes load {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,64 @@
+.userCont {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+.userCont > div {
+    width: 100%;
+    max-width: 1200px;
+    overflow: auto;
+}
+.userCont > div > div {
+    width: 100%;
+    min-width: 850px;
+    border-radius: 8px;
+    padding: 30px;
+    background: var(--white);
+    border-collapse: separate;
+    border-spacing: 0 1em;
+}
+
+.userList {
+    color: var(--navy-blue);
+    background: var(--white);
+    text-align: center;
+    width: 100%;
+}
+
+.userList > ul {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+}
+.userList > ul > li {
+    flex-basis: calc(95% / 4);
+}
+
+.userHeading {
+    font-size: 17px;
+    text-transform: uppercase;
+    font-weight: 900;
+    padding: 10px 0;
+}
+
+.userData {
+    font-size: 15px;
+    font-weight: 400;
+    cursor: pointer;
+    user-select: none;
+    padding: 5px;
+}
+
+.userData:hover {
+    color: var(--white);
+    background: rgba(0, 0, 58, .6);
+}
+
+
+
+
+.userList > ul > li.sn {
+    flex-basis: 5%;
+}

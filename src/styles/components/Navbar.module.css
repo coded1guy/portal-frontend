@@ -1,0 +1,61 @@
+.navCont {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 40px 40px 30px;
+}
+.navbar {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.pageTitle {
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--navy-blue);
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.userSetting {
+    width: 110px;
+}
+
+.navbarButton {
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    float: right;
+}
+
+.navbarButton > svg path {
+    fill: var(--navy-blue);
+}
+
+.userSetting > ul {
+    display: none;
+}
+
+
+@media screen and (max-width: 899px) {
+    .pageTitle {
+        font-size: 30px;
+    }
+    @media screen and (max-width: 768px) {
+        .navbar {
+            flex-wrap: wrap;
+        }
+        .pageTitle {
+            order: 3;
+            flex-basis: 100%;
+        }
+        .navbarButton {
+            order: 2;
+        }
+        .userSetting {
+            width: auto;
+        }
+    }
+}

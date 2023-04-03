@@ -1,0 +1,89 @@
+.applicantControls {
+    height: 35px;
+    position: absolute;
+    top: -40px;
+    right: 0;
+    display: flex;
+    gap: 10px;
+}
+.applicantControls > button {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    gap: 8px;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: .3s ease-in-out;
+}
+.applicantControls > button > svg path {
+    transition: .3s ease-in-out;
+}
+.initialBtn {
+    background: var(--white);
+    color: var(--navy-blue);
+    border: 1px solid var(--navy-blue);
+}
+.initialBtn:hover {
+    background: var(--navy-blue);
+    color: var(--white);
+    border: 1px solid var(--white);
+}
+.initialBtn > svg > path {
+    fill: var(--navy-blue);
+}
+.initialBtn:hover > svg > path {
+    fill: var(--white);
+}
+.viewApplicantBtn > svg {
+    width: 20px;
+    height: 17.78px;
+}
+.updateApplicantBtn > svg {
+    width: 20px;
+    height: 20px;
+}
+.deleteApplicantBtn > svg {
+    width: 20px;
+    height: 22.86px;
+}
+.deleteApplicantBtn {
+    color: var(--red);
+    border: 1px solid var(--red);
+}
+.deleteApplicantBtn > svg > path {
+    fill: var(--red);
+}
+.deleteApplicantBtn:hover {
+    color: var(--white);
+    background: var(--red);
+}
+.deleteApplicantBtn:hover > svg > path {
+    fill: var(--white);
+}
+.activeBtn {
+    background: var(--navy-blue);
+    color: var(--white);
+}
+.activeBtn > svg > path {
+    fill: var(--white);
+}
+.hideElement {
+    display: none;
+}
+.resumeBtnCont {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.resumeBtnCont > button {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    gap: 8px;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: .3s ease-in-out;
+}
