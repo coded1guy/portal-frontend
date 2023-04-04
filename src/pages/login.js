@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router'
 import Head from 'next/head';
-import { useQuery } from "@tanstack/react-query";
 import signInFormStyles from "@/styles/components/SigninForm.module.css";
 import Navbar from "@/components/Navbar";
 import { useLoginSuperUser } from "@/functions/loginSuperUser";
@@ -37,7 +36,19 @@ export default function Login() {
             <form onSubmit={
               (e)=> {
                 e.preventDefault();
-                loginSuperUser.mutate({ "email": email, "password": password })
+                loginSuperUser.mutate(
+                  { "email": email, "password": password },
+                  {
+                    onSuccess: ()=> {
+                      alert("user has been logged in successfully");
+                      console.log(loginSuperUser.data);
+                      //router.push('/');
+                    },
+                    onError: ()=> {
+                      alert(loginSuperUser.error);
+                    }
+                  }
+                )
               }
             }>
               <div className={signInFormStyles.formInput}>

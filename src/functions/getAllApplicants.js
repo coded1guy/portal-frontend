@@ -1,6 +1,4 @@
-const getAllApplicants = async ({ queryKey }) => {
-  const { firstName, lastName, email, password } = queryKey[1];
-
+const getAllApplicants = async () => {
   let requestOptions = {
     method: 'GET',
     redirect: 'follow'

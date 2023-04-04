@@ -58,12 +58,14 @@ export const useEditApplicant = ()=> {
   });
 }
 
+const Success = ()=> {
+  const router = useRouter();
+  router.push("/");
+}
+
 export const useDeleteApplicant = ()=> {
   return useMutation({
     mutationFn: deleteApplicantAPI,
-    onSuccess: ()=> {
-      const router = useRouter();
-      router.push("/");
-    }
+    onSuccess: Success
   });
 }
