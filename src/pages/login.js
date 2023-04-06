@@ -13,6 +13,9 @@ export default function Login() {
   const [ email, setEmail ] = useState("");
   const [ password, setPassword ] = useState("");
 
+  const [ loginData, setLoginData ] = useState({
+    data: ""
+  });
   const loginSuperUser = useLoginSuperUser();
 
   return (
@@ -42,6 +45,9 @@ export default function Login() {
                     onSuccess: ()=> {
                       alert("user has been logged in successfully");
                       console.log(loginSuperUser.data);
+                      setLoginData(loginSuperUser?.data);
+                      console.log(loginData);
+                      setLoginData(loginSuperUser?.data);
                       //router.push('/');
                     },
                     onError: ()=> {
@@ -51,6 +57,7 @@ export default function Login() {
                 )
               }
             }>
+              {JSON.stringify(loginData)}
               <div className={signInFormStyles.formInput}>
                 <label htmlFor="email">Email</label>
                 <div className={signInFormStyles.inputCnt}>

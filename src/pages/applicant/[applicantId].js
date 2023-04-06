@@ -20,6 +20,10 @@ export default function ApplicantDetails() {
     state: '',
     city: '',
     jobTitle: '',
+    level: '',
+    rate: '',
+    status: '',
+    outsourceRate: '',
   });
   const [ editStatus, setEditStatus ] = useState(true);
 
@@ -30,14 +34,18 @@ export default function ApplicantDetails() {
   const [ levelInput, setLevelInput ] = useState("");
   const [ statusInput, setStatusInput ] = useState("");
 
-  const { data } = useQuery({
+  const { data, error } = useQuery({
     queryKey: ["applicantId", applicantId],
     queryFn: getApplicantData,
     refetchOnWindowFocus: false,
     enabled: true,
-    throwOnError: true,
+    //throwOnError: true,
     retry: 2,
-    onSuccess: ()=> setApplicantData(data)
+    onSuccess: ()=> setApplicantData(data),
+    onError: ()=> {
+      console.log("error");
+      console.log("error", error);
+    }
   }).isSuccess
   const editApplicant = useEditApplicant();
   const deleteApplicant = useDeleteApplicant();
@@ -141,7 +149,14 @@ export default function ApplicantDetails() {
                 (e)=> {
                   e.preventDefault();
                   let formData = new FormData(e.target);
-                  editApplicant.mutate({applicantId, applicantData: formData});
+                  editApplicant.mutate(
+                    {applicantId, applicantData: formData},
+                    {
+                      onSuccess: ()=> {
+                        router.push("/");
+                      }
+                    }
+                  );
                 }
               }
             >

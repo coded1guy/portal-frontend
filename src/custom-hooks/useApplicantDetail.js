@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/router";
 
 export const getApplicantData = async({ queryKey }) => {
   let requestOptions = {
@@ -58,14 +57,8 @@ export const useEditApplicant = ()=> {
   });
 }
 
-const Success = ()=> {
-  const router = useRouter();
-  router.push("/");
-}
-
 export const useDeleteApplicant = ()=> {
   return useMutation({
     mutationFn: deleteApplicantAPI,
-    onSuccess: Success
   });
 }

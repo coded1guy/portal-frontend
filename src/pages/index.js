@@ -10,12 +10,20 @@ import getAllApplicants from "@/functions/getAllApplicants";
 
 
 export default function Home() {
-  const results = useQuery(["getALl", ], getAllApplicants);
-  const applicants = results?.data?.allUsers ?? [];
-
-  if(results.isSuccess) {
-    console.log(results)
-  }
+  const [ allUsers, setAllUsers ] = useState([]);
+  const result = useQuery({
+    queryKey: ["getALl"],
+    queryFn: getAllApplicants,
+    onError: ()=> {
+      console.log("error oo");
+      console.log("error", result?.data, result?.error);
+    },
+    onSuccess: ()=> {
+      console.log("success", result?.data, result?.error);
+      setAllUsers(result?.data?.allUsers);
+    },
+    retry: 2
+  });
 
   return (
     <>
@@ -37,7 +45,7 @@ export default function Home() {
       </header>
       <main className={homeStyles.main}>
         <HomeActionPanel />
-        <UserList allUsers={applicants} />
+        <UserList allUsers={allUsers} />
       </main>
     </>
   )
