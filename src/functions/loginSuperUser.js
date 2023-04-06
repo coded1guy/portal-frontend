@@ -6,7 +6,11 @@ const loginSuperUserAPI = async ({ email, password })=> {
   loginData.append("email", email);
   loginData.append("password", password);
 
-  return await axios.post(`https://recruitment-portal-backend-production.up.railway.app/admin/postLogin`, loginData);
+  return await axios.post(
+    `https://recruitment-portal-backend-production.up.railway.app/admin/postLogin`,
+    loginData,
+    { withCredentials: true }
+  );
 }
 
 export const useLoginSuperUser = ()=> {
