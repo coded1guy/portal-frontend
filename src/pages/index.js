@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Head from 'next/head';
+import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import homeStyles from "@/styles/Home.module.css";
 import Navbar from "@/components/Navbar";
@@ -10,19 +11,27 @@ import getAllApplicants from "@/functions/getAllApplicants";
 
 
 export default function Home() {
+  const router = useRouter();
+
   const [ allUsers, setAllUsers ] = useState([]);
+
   const result = useQuery({
     queryKey: ["getALl"],
     queryFn: getAllApplicants,
-    onError: ()=> {
-      console.log("error oo");
-      console.log("error", result?.data, result?.error);
+    onError: (error)=> {
+      console.log(error.response);
+      alert(error.response.data.error);
+      if(Number(error.response.data.status) === 401) {
+        alert("redirecting you to the login page");
+        router.push("/login");
+      }
     },
-    onSuccess: ()=> {
-      console.log("success", result?.data, result?.error);
-      setAllUsers(result?.data?.allUsers);
+    onSuccess: (data)=> {
+      console.log("success", data.data);
+      setAllUsers(data.data.allUsers);
+      console.log(allUsers);
     },
-    retry: 2
+    retry: false
   });
 
   return (

@@ -13,10 +13,7 @@ export default function Login() {
   const [ email, setEmail ] = useState("");
   const [ password, setPassword ] = useState("");
 
-  const [ loginData, setLoginData ] = useState({
-    data: ""
-  });
-  const loginSuperUser = useLoginSuperUser();
+  const { mutate } = useLoginSuperUser();
 
   return (
     <>
@@ -39,25 +36,21 @@ export default function Login() {
             <form onSubmit={
               (e)=> {
                 e.preventDefault();
-                loginSuperUser.mutate(
-                  { "email": email, "password": password },
+                mutate(
+                  { email, password },
                   {
-                    onSuccess: ()=> {
-                      alert("user has been logged in successfully");
-                      console.log(loginSuperUser.data);
-                      setLoginData(loginSuperUser?.data);
-                      console.log(loginData);
-                      setLoginData(loginSuperUser?.data);
+                    onSuccess: (data)=> {
+                      alert(data.data.message);
+                      console.log(data);
                       //router.push('/');
                     },
-                    onError: ()=> {
-                      alert(loginSuperUser.error);
+                    onError: (error)=> {
+                      alert(error.response.data.error);
                     }
                   }
                 )
               }
             }>
-              {JSON.stringify(loginData)}
               <div className={signInFormStyles.formInput}>
                 <label htmlFor="email">Email</label>
                 <div className={signInFormStyles.inputCnt}>
