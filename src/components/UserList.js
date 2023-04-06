@@ -1,4 +1,6 @@
+import Link from "next/link";
 import userListStyle from "@/styles/components/UserList.module.css";
+
 const UserList = ({ allUsers })=> {
   return (
     <section className={userListStyle.userCont}>
@@ -18,13 +20,15 @@ const UserList = ({ allUsers })=> {
               {
                 allUsers.map(user => {
                   return <li key={user.id} className={`${userListStyle.userList} ${userListStyle.userData}`}>
-                    <ul>
-                      <li className={userListStyle.sn}>{user.id}</li>
-                      <li>{user.firstName} {user.lastName}</li>
-                      <li>{user.country}</li>
-                      <li>{user.jobTitle}</li>
-                      <li>{user.status}</li>
-                    </ul>
+                    <Link href={`/applicant/${user.id | null}`}>
+                      <ul>
+                        <li className={userListStyle.sn}>{user.id}</li>
+                        <li>{user.firstName} {user.lastName}</li>
+                        <li>{user.country}</li>
+                        <li>{user.jobTitle}</li>
+                        <li>{user.status}</li>
+                      </ul>
+                    </Link>
                   </li>;
                 })
               }

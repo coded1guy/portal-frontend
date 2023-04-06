@@ -1,54 +1,24 @@
 import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 export const getApplicantData = async({ queryKey }) => {
-  let requestOptions = {
-    method: 'GET',
-    redirect: 'follow',
-  };
-  const res = await fetch(
-    `https://recruitment-portal-backend-production.up.railway.app/admin/getUser/${queryKey[1]}`,
-    requestOptions
-  )
-
-  if(!res.ok) {
-    throw new Error(`Error getting the user with id ${queryKey[1]}`);
-  }
-
-  return res.text();
+  return await axios.get(
+    `https://recruitment-portal-backend-production.up.railway.app/admin/getUser/${queryKey[1]}`
+  );
 }
 
 
 const editApplicantAPI = async({ applicantId, applicantData })=> {
-  let requestOptions = {
-    method: 'POST',
-    redirect: 'follow',
-    body: JSON.stringify(applicantData)
-  };
-  const res = await fetch(
-    `https://recruitment-portal-backend-production.up.railway.app/admin/editUser/${applicantId}`
-    , requestOptions
+  return await axios.post(
+    `https://recruitment-portal-backend-production.up.railway.app/admin/editUser/${applicantId}`,
+    applicantData
   );
-
-  if(!res.ok) {
-    throw new Error(`Error editing applicant with ${applicantId}`);
-  }
-
-  return res.text();
 }
 
 const deleteApplicantAPI = async(applicantId)=> {
-  let requestOptions = {
-    method: 'DELETE',
-    redirect: 'follow',
-  };
-  const res = await fetch(
+  return await axios.delete(
     `https://recruitment-portal-backend-production.up.railway.app/admin/deleteUser/${applicantId}`
-    , requestOptions
   );
-
-  if(!res.ok) {
-    throw new Error(`Error deleting applicant with ${applicantId}`);
-  }
 }
 
 export const useEditApplicant = ()=> {

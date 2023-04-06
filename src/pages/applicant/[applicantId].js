@@ -34,19 +34,19 @@ export default function ApplicantDetails() {
   const [ levelInput, setLevelInput ] = useState("");
   const [ statusInput, setStatusInput ] = useState("");
 
-  const { data, error } = useQuery({
+  const result = useQuery({
     queryKey: ["applicantId", applicantId],
     queryFn: getApplicantData,
     refetchOnWindowFocus: false,
     enabled: true,
-    //throwOnError: true,
     retry: 2,
-    onSuccess: ()=> setApplicantData(data),
-    onError: ()=> {
+    onSuccess: (data)=> setApplicantData(data),
+    onError: (error)=> {
       console.log("error");
       console.log("error", error);
     }
-  }).isSuccess
+  })
+
   const editApplicant = useEditApplicant();
   const deleteApplicant = useDeleteApplicant();
 

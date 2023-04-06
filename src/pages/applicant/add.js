@@ -1,11 +1,17 @@
 import { useState } from "react";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
+import { useRouter } from "next/router";
 import Head from "next/head";
+
 import addApplicantStyles from "@/styles/AddApplicant.module.css";
+
 import useCreateApplicant from "@/functions/postApplicant";
 
+import Navbar from "@/components/Navbar";
+
 export default function AddApplicant() {
+  const router = useRouter();
+
   const [ showJobSuggestion, setShowJobSuggestion ] = useState(false);
   const [ showLevelDropdown, setShowLevelDropdown ] = useState(false);
   const [ showStatusDropdown, setShowStatusDropdown ] = useState(false);
@@ -13,7 +19,22 @@ export default function AddApplicant() {
   const [ levelInput, setLevelInput ] = useState("");
   const [ statusInput, setStatusInput ] = useState("");
 
-  const createApplicant = useCreateApplicant();
+  const { mutate } = useCreateApplicant();
+
+  const handleCreateApplicant = (formData)=> {
+    mutate(
+      formData,
+      {
+        onSuccess: (data)=> {
+          console.log(data);
+          //router.push("/");
+        },
+        onError: (error)=> {
+          console.log(error);
+        }
+      }
+    );
+  }
   return (
     <>
       <Head>
@@ -46,7 +67,7 @@ export default function AddApplicant() {
                 (e)=> {
                   e.preventDefault();
                   let formData = new FormData(e.target);
-                  createApplicant.mutate(formData);
+                  handleCreateApplicant(formData);
                 }
               }
             >

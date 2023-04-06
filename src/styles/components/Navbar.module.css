@@ -21,6 +21,7 @@
 
 .userSetting {
     width: 110px;
+    visibility: hidden;
 }
 
 .navbarButton {
