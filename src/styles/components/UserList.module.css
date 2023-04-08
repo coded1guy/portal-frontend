@@ -26,13 +26,15 @@
     width: 100%;
 }
 
-.userList > ul {
+.userList > ul,
+.userList > a > ul > li {
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
     gap: 20px;
 }
-.userList > ul li {
+.userList > ul > li,
+.userList > a > ul > li{
     flex-basis: calc(95% / 4);
 }
 
