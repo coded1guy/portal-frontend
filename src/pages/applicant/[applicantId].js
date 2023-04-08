@@ -77,7 +77,7 @@ export default function ApplicantDetails() {
 
   useEffect(()=> {
     console.log(authToken);
-    if(authToken.length > 0) {
+    if(authToken) {
       result.refetch().then(
         data=> {
           console.log(data);

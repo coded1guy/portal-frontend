@@ -6,7 +6,7 @@ const UserList = ({ allUsers })=> {
     <section className={userListStyle.userCont}>
       <div>
         <div>
-          {(allUsers) ?
+          {(allUsers && allUsers.length > 0) ?
             <ul>
               <li className={`${userListStyle.userList} ${userListStyle.userHeading}`}>
                 <ul>
