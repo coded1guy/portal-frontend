@@ -48,6 +48,8 @@ export default function Home() {
         error=> {
         console.log(error);
       });
+    } else {
+      router.push("/");
     }
   }, [authToken])
 
