@@ -1,10 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
-const postApplicationAPI = async(applicantData)=> {
+const postApplicationAPI = async({ authToken, applicantData })=> {
   return await axios.post(
-    `https://recruitment-portal-backend-production.up.railway.app/admin/postLogin`,
-    applicantData
+    `https://recruitment-portal-backend-production.up.railway.app/admin/createUser`,
+    applicantData,
+    {
+      headers: {
+        Authorization: `Bearer ${authToken}`
+      }
+    }
   );
 }
 

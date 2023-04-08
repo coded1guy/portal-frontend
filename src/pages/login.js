@@ -4,16 +4,35 @@ import Head from 'next/head';
 import signInFormStyles from "@/styles/components/SigninForm.module.css";
 import Navbar from "@/components/Navbar";
 import { useLoginSuperUser } from "@/functions/loginSuperUser";
+import { useCreateSessionStorage } from "@/custom-hooks/useSessionStorage";
 
 export default function Login() {
   const router = useRouter();
 
   const passwordRef = useRef();
   const passwordIconRef = useRef();
-  const [ email, setEmail ] = useState("");
-  const [ password, setPassword ] = useState("");
 
   const { mutate } = useLoginSuperUser();
+
+  const handleLogin = (loginData)=> {
+    mutate(
+      loginData,
+      {
+        onSuccess: (data)=> {
+          console.log(data);
+          alert(data.data.message);
+          sessionStorage.setItem("drpToken", data.data.token);
+          console.log(data);
+          if(sessionStorage.getItem("drpToken")) {
+            router.push('/');
+          }
+        },
+        onError: (error)=> {
+          alert(error.response.data.error);
+        }
+      }
+    )
+  }
 
   return (
     <>
@@ -36,19 +55,8 @@ export default function Login() {
             <form onSubmit={
               (e)=> {
                 e.preventDefault();
-                mutate(
-                  { email, password },
-                  {
-                    onSuccess: (data)=> {
-                      alert(data.data.message);
-                      console.log(data);
-                      //router.push('/');
-                    },
-                    onError: (error)=> {
-                      alert(error.response.data.error);
-                    }
-                  }
-                )
+                const loginData = new FormData(e.target);
+                handleLogin(loginData);
               }
             }>
               <div className={signInFormStyles.formInput}>
@@ -60,11 +68,6 @@ export default function Login() {
                     type="email"
                     placeholder="enter your email"
                     required
-                    onChange={
-                      (e)=> {
-                        setEmail(e.target.value);
-                      }
-                    }
                   />
                 </div>
               </div>
@@ -78,11 +81,6 @@ export default function Login() {
                     placeholder="enter your password"
                     ref={passwordRef}
                     required
-                    onChange={
-                      (e)=> {
-                        setPassword(e.target.value);
-                      }
-                    }
                   />
                   <button
                     className={signInFormStyles.viewPassword}

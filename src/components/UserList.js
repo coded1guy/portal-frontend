@@ -19,8 +19,8 @@ const UserList = ({ allUsers })=> {
               </li>
               {
                 allUsers.map(user => {
-                  return <li key={user.id} className={`${userListStyle.userList} ${userListStyle.userData}`}>
-                    <Link href={`/applicant/${user.id | null}`}>
+                  return <li key={user["_id"]} className={`${userListStyle.userList} ${userListStyle.userData}`}>
+                    <Link href={`/applicant/${user["_id"]}`}>
                       <ul>
                         <li className={userListStyle.sn}>{user.id}</li>
                         <li>{user.firstName} {user.lastName}</li>

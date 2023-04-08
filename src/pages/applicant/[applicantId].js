@@ -10,7 +10,9 @@ import { getApplicantData, useEditApplicant, useDeleteApplicant } from "@/custom
 
 export default function ApplicantDetails() {
   const router = useRouter()
-  const { applicantId } = router.query
+  const [ applicantId, setApplicantId ] = useState("");
+  const [authToken, setAuthToken ]  = useState("");
+
   const [ applicantData, setApplicantData ] = useState({
     firstName: '',
     middleName: '',
@@ -25,6 +27,21 @@ export default function ApplicantDetails() {
     status: '',
     outsourceRate: '',
   });
+  const [ editApplicantData, setEditApplicantData ] = useState({
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    email: '',
+    country: '',
+    state: '',
+    city: '',
+    jobTitle: '',
+    level: '',
+    rate: '',
+    status: '',
+    outsourceRate: '',
+  });
+
   const [ editStatus, setEditStatus ] = useState(true);
 
   const [ showJobSuggestion, setShowJobSuggestion ] = useState(false);
@@ -35,20 +52,41 @@ export default function ApplicantDetails() {
   const [ statusInput, setStatusInput ] = useState("");
 
   const result = useQuery({
-    queryKey: ["applicantId", applicantId],
+    queryKey: ["applicantData", { applicantId, authToken }],
     queryFn: getApplicantData,
     refetchOnWindowFocus: false,
-    enabled: true,
-    retry: 2,
-    onSuccess: (data)=> setApplicantData(data),
+    enabled: false,
+    retry: false,
+    onSuccess: (data)=> setApplicantData(data.data.user),
     onError: (error)=> {
       console.log("error");
       console.log("error", error);
+      router.push("/");
     }
   })
 
   const editApplicant = useEditApplicant();
   const deleteApplicant = useDeleteApplicant();
+
+  useEffect(()=> {
+    const authToken = sessionStorage.getItem("drpToken");
+    setAuthToken(authToken);
+    setApplicantId(router.query.applicantId);
+    console.log(authToken);
+  }, [])
+
+  useEffect(()=> {
+    console.log(authToken);
+    if(authToken.length > 0) {
+      result.refetch().then(
+        data=> {
+          console.log(data);
+        }).catch(
+        error=> {
+          console.log(error);
+        });
+    }
+  }, [authToken])
 
   useEffect(()=> {
     setShowJobSuggestion(false);
@@ -135,7 +173,19 @@ export default function ApplicantDetails() {
               </button>
               <button
                 className={applicantDetailStyles.deleteApplicantBtn}
-                onClick={()=> deleteApplicant.mutate(applicantId)}
+                onClick={()=> deleteApplicant.mutate(
+                  { applicantId, authToken },
+                  {
+                    onSuccess: (data)=> {
+                      console.log(data);
+                      alert("the applicant has been deleted successfully");
+                      router.push("/");
+                    },
+                    onError: (error)=> {
+                      console.log(error);
+                    }
+                  }
+                  )}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                   <path
@@ -150,10 +200,14 @@ export default function ApplicantDetails() {
                   e.preventDefault();
                   let formData = new FormData(e.target);
                   editApplicant.mutate(
-                    {applicantId, applicantData: formData},
+                    {applicantId, applicantData: formData, authToken },
                     {
-                      onSuccess: ()=> {
+                      onSuccess: (data)=> {
+                        console.log(data);
                         router.push("/");
+                      },
+                      onError: (error)=> {
+                        console.log(error);
                       }
                     }
                   );
@@ -172,7 +226,15 @@ export default function ApplicantDetails() {
                     pattern="[a-zA-Z]*"
                     required
                     disabled={!editStatus}
-                    value={!editStatus ? applicantData.firstName : null}
+                    value={applicantData.firstName}
+                    onChange={
+                      (e)=>{
+                        setApplicantData({
+                          ...applicantData,
+                          firstName: e.target.value
+                        })
+                      }
+                    }
                   />
                 </div>
                 <div>
@@ -183,7 +245,15 @@ export default function ApplicantDetails() {
                     type="text"
                     placeholder="input middle name"
                     disabled={!editStatus}
-                    value={!editStatus ? applicantData.middleName : null}
+                    value={applicantData.middleName}
+                    onChange={
+                      (e)=>{
+                        setApplicantData({
+                          ...applicantData,
+                          middleName: e.target.value
+                        })
+                      }
+                    }
                   />
                 </div>
                 <div>
@@ -195,7 +265,15 @@ export default function ApplicantDetails() {
                     placeholder="input last name"
                     required
                     disabled={!editStatus}
-                    value={!editStatus ? applicantData.lastName : null}
+                    value={applicantData.lastName}
+                    onChange={
+                      (e)=>{
+                        setApplicantData({
+                          ...applicantData,
+                          lastName: e.target.value
+                        })
+                      }
+                    }
                   />
                 </div>
                 <div>
@@ -207,7 +285,15 @@ export default function ApplicantDetails() {
                     placeholder="input email address"
                     required
                     disabled={!editStatus}
-                    value={!editStatus ? applicantData.email : null}
+                    value={applicantData.email}
+                    onChange={
+                      (e)=>{
+                        setApplicantData({
+                          ...applicantData,
+                          email: e.target.value
+                        })
+                      }
+                    }
                   />
                 </div>
                 <div>
@@ -219,7 +305,15 @@ export default function ApplicantDetails() {
                     placeholder="input country"
                     required
                     disabled={!editStatus}
-                    value={!editStatus ? applicantData.country : null}
+                    value={applicantData.country}
+                    onChange={
+                      (e)=>{
+                        setApplicantData({
+                          ...applicantData,
+                          country: e.target.value
+                        })
+                      }
+                    }
                   />
                 </div>
                 <div>
@@ -231,7 +325,15 @@ export default function ApplicantDetails() {
                     placeholder="input state"
                     required
                     disabled={!editStatus}
-                    value={!editStatus ? applicantData.state : null}
+                    value={applicantData.state}
+                    onChange={
+                      (e)=>{
+                        setApplicantData({
+                          ...applicantData,
+                          state: e.target.value
+                        })
+                      }
+                    }
                   />
                 </div>
                 <div>
@@ -243,7 +345,15 @@ export default function ApplicantDetails() {
                     placeholder="input city"
                     required
                     disabled={!editStatus}
-                    value={!editStatus ? applicantData.city : null}
+                    value={applicantData.city}
+                    onChange={
+                      (e)=>{
+                        setApplicantData({
+                          ...applicantData,
+                          city: e.target.value
+                        })
+                      }
+                    }
                   />
                 </div>
                 <div className={addApplicantStyles.jobTitle}>
@@ -256,7 +366,15 @@ export default function ApplicantDetails() {
                       placeholder="input job title"
                       required
                       disabled={!editStatus}
-                      value={!editStatus ? applicantData.jobTitle : null}
+                      value={applicantData.jobTitle}
+                      onChange={
+                        (e)=>{
+                          setApplicantData({
+                            ...applicantData,
+                            jobTitle: e.target.value
+                          })
+                        }
+                      }
                     />
                     <ul
                       className={`
@@ -309,38 +427,40 @@ export default function ApplicantDetails() {
                     </ul>
                   </div>
                 </div>
-                <div>
-                  <label htmlFor="resume">Resume *</label>
-                  {(editStatus) ?
-                    <input
-                      id="resume"
-                      name="resume"
-                      type="file"
-                      accept=".pdf, .doc. .docx"
-                      required
-                    /> :
-                    <div className={applicantDetailStyles.resumeBtnCont}>
-                      <button
-                        type="button"
-                        className={applicantDetailStyles.initialBtn}
-                      >
-                        <a
-                          href="#"
-                          target="_blank"
-                          title="go to ${data.resume_link}"
-                        >
-                          view
-                        </a>
-                      </button>
-                      <button
-                        type="button"
-                        className={applicantDetailStyles.initialBtn}
-                      >
-                        download
-                      </button>
-                    </div>
-                  }
-                </div>
+                {
+                  // <div>
+                  //   <label htmlFor="resume">Resume *</label>
+                  //   {(editStatus) ?
+                  //     <input
+                  //       id="resume"
+                  //       name="resume"
+                  //       type="file"
+                  //       accept=".pdf, .doc. .docx"
+                  //       required
+                  //     /> :
+                  //     <div className={applicantDetailStyles.resumeBtnCont}>
+                  //       <button
+                  //         type="button"
+                  //         className={applicantDetailStyles.initialBtn}
+                  //       >
+                  //         <a
+                  //           href="#"
+                  //           target="_blank"
+                  //           title="go to ${data.resume_link}"
+                  //         >
+                  //           view
+                  //         </a>
+                  //       </button>
+                  //       <button
+                  //         type="button"
+                  //         className={applicantDetailStyles.initialBtn}
+                  //       >
+                  //         download
+                  //       </button>
+                  //     </div>
+                  //   }
+                  // </div>
+                }
                 <div>
                   <label htmlFor="rate">Rate *</label>
                   <input
@@ -350,7 +470,15 @@ export default function ApplicantDetails() {
                     placeholder="input rate"
                     required
                     disabled={!editStatus}
-                    value={!editStatus ? applicantData.rate : null}
+                    value={applicantData.rate}
+                    onChange={
+                      (e)=>{
+                        setApplicantData({
+                          ...applicantData,
+                          rate: e.target.value
+                        })
+                      }
+                    }
                   />
                 </div>
                 <div>
@@ -358,6 +486,7 @@ export default function ApplicantDetails() {
                   <div className={addApplicantStyles.selectOption}>
                     <input
                       id="status"
+                      name="status"
                       type="text"
                       placeholder="input status"
                       required
@@ -412,7 +541,15 @@ export default function ApplicantDetails() {
                     placeholder="input outsource rate"
                     required
                     disabled={!editStatus}
-                    value={!editStatus ? applicantData.outsourceRate : null}
+                    value={applicantData.outsourceRate}
+                    onChange={
+                      (e)=>{
+                        setApplicantData({
+                          ...applicantData,
+                          outsourceRate: e.target.value
+                        })
+                      }
+                    }
                   />
                 </div>
               </div>

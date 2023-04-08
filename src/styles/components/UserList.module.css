@@ -32,7 +32,7 @@
     flex-wrap: nowrap;
     gap: 20px;
 }
-.userList > ul > li {
+.userList > ul li {
     flex-basis: calc(95% / 4);
 }
 

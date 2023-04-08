@@ -4,39 +4,25 @@ import Head from 'next/head';
 import { useQuery } from "@tanstack/react-query";
 import signInFormStyles from "@/styles/components/SigninForm.module.css";
 import Navbar from "@/components/Navbar";
-import createSuperUser from "@/functions/createSuperUser";
+import useCreateSuperUser from "@/functions/createSuperUser";
 
 export default function CreateSuperUser() {
   const router = useRouter();
 
   const passwordRef = useRef();
   const passwordIconRef = useRef();
-  const [ firstName, setFirstName ] = useState("");
-  const [ lastName, setLastName ] = useState("");
-  const [ email, setEmail ] = useState("");
-  const [ password, setPassword ] = useState("");
 
-  const { data, refetch } = useQuery({
-    queryKey: ["createUser", { firstName, lastName, email, password }],
-    queryFn: createSuperUser,
-    refetchOnWindowFocus: false,
-    enabled: false,
-    throwOnError: true,
-    retry: false
-  });
+  const { mutate } = useCreateSuperUser();
 
-  const handleCreateUserData = (data)=> {
-    console.log(data);
-    if(data) {
-      if(Number(data.code) === 201) {
-        alert("user has been created");
-        router.push('/login');
-      } else {
-        alert(data.error.message);
-      }
-    } else {
-      alert(data.message);
-    }
+  const handleCreateUserData = (formData)=> {
+    mutate(formData, {
+        onSuccess: (data)=> {
+          console.log(data);
+        },
+        onError: (error)=> {
+          console.log(error);
+        }
+    });
   }
 
   return (
@@ -59,7 +45,8 @@ export default function CreateSuperUser() {
           <section className={signInFormStyles.form}>
             <form onSubmit={(e)=> {
               e.preventDefault();
-              refetch().then(data => handleCreateUserData(data))
+              const formData = new FormData(e.target);
+              handleCreateUserData(formData);
             }
             }>
               <div className={signInFormStyles.formInput}>
@@ -71,11 +58,6 @@ export default function CreateSuperUser() {
                     type="text"
                     placeholder="enter your first name"
                     required
-                    onChange={
-                      (e)=> {
-                        setFirstName(e.target.value);
-                      }
-                    }
                   />
                 </div>
               </div>
@@ -88,11 +70,6 @@ export default function CreateSuperUser() {
                     type="text"
                     placeholder="enter your last name"
                     required
-                    onChange={
-                      (e)=> {
-                        setLastName(e.target.value);
-                      }
-                    }
                   />
                 </div>
               </div>
@@ -105,11 +82,6 @@ export default function CreateSuperUser() {
                     type="email"
                     placeholder="enter your email"
                     required
-                    onChange={
-                      (e)=> {
-                        setEmail(e.target.value);
-                      }
-                    }
                   />
                 </div>
               </div>
@@ -122,11 +94,6 @@ export default function CreateSuperUser() {
                     placeholder="enter your password"
                     ref={passwordRef}
                     required
-                    onChange={
-                      (e)=> {
-                        setPassword(e.target.value);
-                      }
-                    }
                   />
                   <button
                     className={signInFormStyles.viewPassword}

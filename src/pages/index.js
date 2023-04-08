@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from 'next/head';
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
@@ -9,30 +9,47 @@ import UserList from "@/components/UserList";
 import HomeActionPanel from "@/components/HomeActionPanel";
 import getAllApplicants from "@/functions/getAllApplicants";
 
-
 export default function Home() {
+  const [authToken, setAuthToken ]  = useState("");
+
   const router = useRouter();
 
   const [ allUsers, setAllUsers ] = useState([]);
 
   const result = useQuery({
-    queryKey: ["getALl"],
+    queryKey: ["getAll", authToken],
     queryFn: getAllApplicants,
+    enabled: false,
     onError: (error)=> {
       console.log(error.response);
-      alert(error.response.data.error);
-      if(Number(error.response.data.status) === 401) {
-        alert("redirecting you to the login page");
-        router.push("/login");
-      }
+      //alert(error.response);
     },
     onSuccess: (data)=> {
       console.log("success", data.data);
       setAllUsers(data.data.allUsers);
-      console.log(allUsers);
+      console.log(data.data.allUsers);
     },
     retry: false
   });
+
+  useEffect(()=> {
+    const authToken = sessionStorage.getItem("drpToken");
+    setAuthToken(authToken);
+    console.log(authToken);
+  }, [])
+
+  useEffect(()=> {
+    console.log(authToken);
+    if(authToken.length > 0) {
+      result.refetch().then(
+        data=> {
+        console.log(data);
+      }).catch(
+        error=> {
+        console.log(error);
+      });
+    }
+  }, [authToken])
 
   return (
     <>

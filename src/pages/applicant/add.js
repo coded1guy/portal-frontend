@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Head from "next/head";
@@ -12,6 +12,8 @@ import Navbar from "@/components/Navbar";
 export default function AddApplicant() {
   const router = useRouter();
 
+  const [ authToken, setAuthToken ] = useState("");
+
   const [ showJobSuggestion, setShowJobSuggestion ] = useState(false);
   const [ showLevelDropdown, setShowLevelDropdown ] = useState(false);
   const [ showStatusDropdown, setShowStatusDropdown ] = useState(false);
@@ -21,13 +23,13 @@ export default function AddApplicant() {
 
   const { mutate } = useCreateApplicant();
 
-  const handleCreateApplicant = (formData)=> {
-    mutate(
-      formData,
+  const handleCreateApplicant = (reqData)=> {
+    mutate(reqData,
       {
         onSuccess: (data)=> {
           console.log(data);
-          //router.push("/");
+          alert("successfully added the new applicant.")
+          router.push("/");
         },
         onError: (error)=> {
           console.log(error);
@@ -35,6 +37,12 @@ export default function AddApplicant() {
       }
     );
   }
+
+  useEffect(()=> {
+    const authToken = sessionStorage.getItem("drpToken");
+    setAuthToken(authToken);
+  }, [])
+
   return (
     <>
       <Head>
@@ -67,7 +75,9 @@ export default function AddApplicant() {
                 (e)=> {
                   e.preventDefault();
                   let formData = new FormData(e.target);
-                  handleCreateApplicant(formData);
+                  const reqData = { authToken, applicantData: formData }
+                  handleCreateApplicant(reqData);
+                  console.log(formData);
                 }
               }
             >
@@ -199,16 +209,18 @@ export default function AddApplicant() {
                     </ul>
                   </div>
                 </div>
-                <div>
-                  <label htmlFor="resume">Resume *</label>
-                  <input
-                    id="resume"
-                    name="resume"
-                    type="file"
-                    accept=".pdf, .doc. .docx"
-                    required
-                  />
-                </div>
+                {
+                  // <div>
+                  //   <label htmlFor="resume">Resume *</label>
+                  //   <input
+                  //     id="resume"
+                  //     name="resume"
+                  //     type="file"
+                  //     accept=".pdf, .doc. .docx"
+                  //     required
+                  //   />
+                  // </div>
+                }
                 <div>
                   <label htmlFor="rate">Rate *</label>
                   <input
@@ -224,6 +236,7 @@ export default function AddApplicant() {
                   <div className={addApplicantStyles.selectOption}>
                     <input
                       id="status"
+                      name="status"
                       type="text"
                       placeholder="input status"
                       value={statusInput}

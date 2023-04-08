@@ -1,15 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
-const loginSuperUserAPI = async ({ email, password })=> {
-  const loginData = new FormData();
-  loginData.append("email", email);
-  loginData.append("password", password);
-
+const loginSuperUserAPI = async (loginData)=> {
   return await axios.post(
     `https://recruitment-portal-backend-production.up.railway.app/admin/postLogin`,
     loginData,
-    { withCredentials: true }
   );
 }
 
